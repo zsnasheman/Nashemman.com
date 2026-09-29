@@ -1,0 +1,130 @@
+# ─────────────────────────────────────────────────────────────
+#  Media slots. Every image or video on the site points to a slot here.
+#
+#  To replace a placeholder:
+#    1. Put the file in /public/media/  (e.g. public/media/portrait.jpg)
+#    2. Set  src: "/media/portrait.jpg"
+#    3. Write a real description in  alt
+#    4. Fill in  credit  (photographer / owner). Only use files you have rights to.
+#  For video use  type: video  and optionally  poster: "/media/poster.jpg".
+#  Leave src empty ("") to keep the labelled placeholder.
+# ─────────────────────────────────────────────────────────────
+
+portrait-hero:
+  label: "Portrait of Nashemman"
+  brief: "Editorial portrait, vertical 4:5, natural light. Not a corporate headshot."
+  priority: 1
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+portrait-story:
+  label: "Second portrait, working"
+  brief: "Nashemman at work: drawing, on site or with materials. Vertical 3:4."
+  priority: 2
+  ratio: "3/4"
+  src: ""
+  alt: ""
+  credit: ""
+
+roots-kashmir:
+  label: "A photograph from Kashmir"
+  brief: "A personal image chosen by Nashemman: a texture, a room, a family object. Not a tourism view."
+  priority: 3
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+practice-dubai:
+  label: "Dubai, the place of practice"
+  brief: "The studio, a site visit, a street she knows. Everyday rather than skyline."
+  priority: 4
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+venture-accessories:
+  label: "Interior accessories: work in progress"
+  brief: "Samples, sketches or materials. Nothing that reveals what she isn't ready to share."
+  priority: 6
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+studio-feature:
+  label: "The Scribble Lab: lead project image"
+  brief: "One strong, rights-cleared project photograph from the studio. Landscape 16:10."
+  priority: 2
+  ratio: "16/10"
+  src: ""
+  alt: ""
+  credit: ""
+
+studio-kinetic:
+  label: "Kinetic window display: short video"
+  brief: "A 10–20 second silent loop of a kinetic display. MP4, under 8 MB, plus a still poster frame."
+  priority: 5
+  ratio: "4/5"
+  type: "video"
+  src: ""
+  poster: ""
+  alt: ""
+  credit: ""
+
+studio-interiors:
+  label: "Studio project: interiors"
+  brief: "Residential or commercial interior by The Scribble Lab."
+  priority: 5
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+studio-activation:
+  label: "Studio project: activation or exhibition"
+  brief: "A brand activation, exhibition stand or event by The Scribble Lab."
+  priority: 5
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+journal-opening:
+  label: "Cover: a page from a sketchbook"
+  brief: "A photograph of one of Nashemman's own sketchbook pages."
+  priority: 7
+  ratio: "16/10"
+  src: ""
+  alt: ""
+  credit: ""
+
+journal-travel:
+  label: "Cover: travel photograph"
+  brief: "Nashemman's own photograph from the trip she writes about."
+  priority: 8
+  ratio: "16/10"
+  src: ""
+  alt: ""
+  credit: ""
+
+journal-process:
+  label: "Cover: process"
+  brief: "A mock-up, a model, a material test."
+  priority: 8
+  ratio: "16/10"
+  src: ""
+  alt: ""
+  credit: ""
+
+journal-ideas:
+  label: "Cover: an idea in progress"
+  brief: "Anything that shows thinking before it is finished."
+  priority: 9
+  ratio: "16/10"
+  src: ""
+  alt: ""
+  credit: ""
