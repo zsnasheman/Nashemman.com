@@ -5,9 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { NavItem } from "@/lib/content";
 
-type Props = { name: string; publication: string; nav: NavItem[] };
-
-export default function SiteHeader({ name, publication, nav }: Props) {
+export default function SiteHeader({ name, nav }: { name: string; nav: NavItem[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,7 +17,7 @@ export default function SiteHeader({ name, publication, nav }: Props) {
   useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 4);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -56,32 +54,26 @@ export default function SiteHeader({ name, publication, nav }: Props) {
     };
   }, [open]);
 
-  // The panel sits outside <header>: the header's backdrop-filter would
-  // otherwise become the containing block for the fixed-position panel.
+  // The mobile panel sits outside <header>: a backdrop-filter on the header
+  // would otherwise become the containing block for the fixed panel.
   return (
     <>
-      <header className="masthead" data-scrolled={scrolled}>
-        <div className="shell">
+      <header className="masthead" data-scrolled={scrolled} data-open={open}>
+        <div className="shell masthead__row">
           <Link href="/" className="wordmark" aria-label={`${name}, home`}>
-            <span className="wordmark__name">{name}</span>
-            <span className="wordmark__pub" aria-hidden="true">
-              {publication}
-            </span>
+            {name}
           </Link>
 
           <nav className="nav-desktop" aria-label="Main">
-            <ol>
+            <ul>
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="nav-link" aria-current={isCurrent(item.href) ? "page" : undefined}>
-                    <span className="num" aria-hidden="true">
-                      {item.number}
-                    </span>
                     {item.label}
                   </Link>
                 </li>
               ))}
-            </ol>
+            </ul>
           </nav>
 
           <button
@@ -93,33 +85,28 @@ export default function SiteHeader({ name, publication, nav }: Props) {
             onClick={() => setOpen((o) => !o)}
           >
             <span className="menu-button__lines" aria-hidden="true" />
-            {open ? "Close" : "Contents"}
+            {open ? "Close" : "Menu"}
           </button>
         </div>
       </header>
 
-      <div id="menu-panel" ref={panelRef} className="menu-panel" data-open={open} aria-hidden={!open} inert={!open}>
+      <div id="menu-panel" ref={panelRef} className="menu-panel" data-open={open} inert={!open}>
         <nav aria-label="Main (mobile)">
-          <p className="eyebrow">Contents</p>
-          <ol>
+          <ul>
             <li>
               <Link href="/" aria-current={pathname === "/" ? "page" : undefined}>
-                <span className="num">00</span>Cover
+                Home
               </Link>
             </li>
             {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
-                  <span className="num">{item.number}</span>
                   {item.label}
                 </Link>
               </li>
             ))}
-          </ol>
+          </ul>
         </nav>
-        <p className="hand" aria-hidden="true">
-          still being drawn…
-        </p>
       </div>
     </>
   );

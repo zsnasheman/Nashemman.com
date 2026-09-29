@@ -4,7 +4,7 @@ kind: "Project"
 since: "Year"
 status: "draft"
 order: 9
-cover: "studio-interiors"
+cover: "board-residential"
 summary: "Copy this file to write a project story. Draft entries are shown only on the local preview."
 ---
 

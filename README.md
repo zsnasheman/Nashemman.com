@@ -1,6 +1,6 @@
-# Still Drawing: Nashemman Sahiba Zargar
+# Nashemman Sahiba Zargar
 
-The personal editorial website of Nashemman Sahiba Zargar: an independent design journal about her roots, her practice, The Scribble Lab and the chapters still being drawn.
+The personal website of Nashemman Sahiba Zargar: an art-directed portrait of a designer, founder and entrepreneur, written about her in the third person.
 
 Built with **Next.js (Node.js)** and deployed on **Vercel**. There is no database: every word, link and image on the site is in the `content/` folder.
 
@@ -38,9 +38,9 @@ npm start            # http://localhost:3000
 
 | To change… | Edit |
 |---|---|
-| Name, tagline, home page text, navigation, links, contact email | `content/site.yml` |
-| The Story page | `content/story.md` (each `## ` heading is a chapter) |
-| Work & Ventures | `content/work/*.md` (one file per chapter) |
+| Name, home page text, statement, facts, The Scribble Lab, the venture, the six board disciplines, navigation, contact channels, email | `content/site.yml` |
+| The Story page | `content/story.md` (each `## ` heading is a chapter; add `| roots`, `| practice`, `| future` or `| board` to make it image-led) |
+| Project stories (future) | `content/work/_project-story-template.md` |
 | Journal entries | `content/journal/*.md` (one file per entry) |
 | Talks & appearances | `content/talks/*.md` (one file per talk) |
 | Photos and video | `content/media.yml` + files in `public/media/` |
@@ -63,8 +63,19 @@ Copy `content/talks/_talk-template.md`. A talk is shown only when **all three** 
 
 Only use images you have the rights to. See `ASSETS.md` for the prioritised list.
 
-### Adding a contact email
-Set `contact.email` in `content/site.yml`. The Connect page shows it automatically. Until then, it points to the verified channels.
+### Contact channels
+Each channel in `content/site.yml` has `verified: true/false`. Only verified channels appear on the live site; all of them show on the local preview. Set `contact.email` only to an address Nashemman has supplied.
+
+### Colour patches
+In `home.statement` (and the page titles), wrap words in `[[double brackets]]` to place a colour patch behind them. Use one or two per heading at most.
+
+### The landing sketch
+The drawing is data in `components/sketch/scene.ts`: one continuous line (roots → practice), colour fields, details, clouds, and dotted, unlabelled future forms. Keep the future forms unlabelled.
+
+## Design system
+- **Type:** Bricolage Grotesque (display, set condensed and heavy), Instrument Sans (text and interface), DM Mono (labels). See `docs/review/type-specimen.png`.
+- **Colour:** paper and ink, plus three fields: apricot (roots, warmth), sky (practice), butter (what's next, highlights). Chinar red is reserved for small marks in drawings.
+- **Motion:** the landing sketch draws once, the board gathers and spreads once, the contact note opens once. Clouds drift slowly. Everything is static under `prefers-reduced-motion`, and nothing is hidden without JavaScript.
 
 ---
 
@@ -79,7 +90,7 @@ Set `contact.email` in `content/site.yml`. The Connect page shows it automatical
 
 1. Sign in at vercel.com with GitHub → **Add New… → Project** → import `zsnasheman/Nashemman.com`.
 2. Framework preset: **Next.js**. No settings or environment variables are needed.
-3. Under **Settings → Git**, make sure the **Production Branch** is `main`. Every other branch deploys as a private **Preview** URL, which is safe to share for QA.
+3. Under **Settings → Git**, make sure the **Production Branch** is `main`. Every other branch deploys as a **Preview** URL. Whether a preview needs a login is set under **Settings → Deployment Protection**; `noindex` does not make it private.
 4. Optional: set `NEXT_PUBLIC_SITE_URL` (for example `https://nashemman.com`) once a domain is attached, so the sitemap and social previews use it.
 
 Preview deployments are set to `noindex` automatically (see `app/robots.ts`).
@@ -88,7 +99,7 @@ Preview deployments are set to `noindex` automatically (see `app/robots.ts`).
 
 ```
 app/          pages (one folder per section), global styles
-components/   interactive pieces: ink line, live name type, sketch pad, figures
+components/   sketch/ (landing drawing), board/ (material board), contact/ (closing note), figures
 content/      ALL editable copy, entries and media slots
 lib/          content loader (Markdown + YAML → pages)
 public/media/ images and video

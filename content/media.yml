@@ -1,18 +1,20 @@
 # ─────────────────────────────────────────────────────────────
-#  Media slots. Every image or video on the site points to a slot here.
+#  Media slots. Every photo or video on the site points to a slot.
 #
-#  To replace a placeholder:
-#    1. Put the file in /public/media/  (e.g. public/media/portrait.jpg)
+#  To add a file:
+#    1. Put it in /public/media/  (e.g. public/media/portrait.jpg)
 #    2. Set  src: "/media/portrait.jpg"
-#    3. Write a real description in  alt
-#    4. Fill in  credit  (photographer / owner). Only use files you have rights to.
-#  For video use  type: video  and optionally  poster: "/media/poster.jpg".
-#  Leave src empty ("") to keep the labelled placeholder.
+#    3. Write a real description in  alt, and fill in  credit
+#  Only use files Nashemman or the studio has the rights to publish.
+#
+#  While src is empty, visitors see an intentional illustrated
+#  composition instead. `label` and `brief` are INTERNAL notes: they are
+#  never shown on the live site (see ASSETS.md for the checklist).
 # ─────────────────────────────────────────────────────────────
 
 portrait-hero:
-  label: "Portrait of Nashemman"
-  brief: "Editorial portrait, vertical 4:5, natural light. Not a corporate headshot."
+  label: "Portrait of Nashemman (landing panel)"
+  brief: "Editorial portrait, vertical 4:5, natural light, looking towards camera. Not a corporate headshot. At least 1600 px tall."
   priority: 1
   ratio: "4/5"
   src: ""
@@ -20,108 +22,115 @@ portrait-hero:
   credit: ""
 
 portrait-story:
-  label: "Second portrait, working"
-  brief: "Nashemman at work: drawing, on site or with materials. Vertical 3:4."
-  priority: 2
+  label: "Nashemman at work (Story page)"
+  brief: "Working portrait (drawing, on site, or with materials), vertical 3:4."
+  priority: 3
   ratio: "3/4"
   src: ""
   alt: ""
   credit: ""
 
-roots-kashmir:
-  label: "A photograph from Kashmir"
-  brief: "A personal image chosen by Nashemman: a texture, a room, a family object. Not a tourism view."
-  priority: 3
-  ratio: "4/5"
+studio-feature:
+  label: "The Scribble Lab: lead image"
+  brief: "One strong, rights-cleared project photograph. Landscape 3:2, at least 2400 px wide."
+  priority: 2
+  ratio: "3/2"
   src: ""
   alt: ""
   credit: ""
 
-practice-dubai:
-  label: "Dubai, the place of practice"
-  brief: "The studio, a site visit, a street she knows. Everyday rather than skyline."
+board-residential:
+  label: "Board: residential interiors"
+  brief: "Approved project photo, portrait 4:5. Replaces the illustrated study on the board."
   priority: 4
   ratio: "4/5"
   src: ""
   alt: ""
   credit: ""
 
-venture-accessories:
-  label: "Interior accessories: work in progress"
-  brief: "Samples, sketches or materials. Nothing that reveals what she isn't ready to share."
-  priority: 6
+board-commercial:
+  label: "Board: commercial interiors"
+  brief: "Approved project photo, portrait 4:5."
+  priority: 4
   ratio: "4/5"
   src: ""
   alt: ""
   credit: ""
 
-studio-feature:
-  label: "The Scribble Lab: lead project image"
-  brief: "One strong, rights-cleared project photograph from the studio. Landscape 16:10."
-  priority: 2
-  ratio: "16/10"
+board-brand:
+  label: "Board: brand activations"
+  brief: "Approved project photo, portrait 4:5."
+  priority: 4
+  ratio: "4/5"
   src: ""
   alt: ""
   credit: ""
 
-studio-kinetic:
-  label: "Kinetic window display: short video"
-  brief: "A 10–20 second silent loop of a kinetic display. MP4, under 8 MB, plus a still poster frame."
+board-kinetic:
+  label: "Board: kinetic window displays"
+  brief: "Approved project photo, portrait 4:5 (a still from a moving display works well)."
+  priority: 4
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+board-exhibitions:
+  label: "Board: exhibitions"
+  brief: "Approved project photo, portrait 4:5."
+  priority: 4
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+board-events:
+  label: "Board: events"
+  brief: "Approved project photo, portrait 4:5."
+  priority: 4
+  ratio: "4/5"
+  src: ""
+  alt: ""
+  credit: ""
+
+roots-kashmir:
+  label: "A personal photograph from Kashmir (Story: Roots)"
+  brief: "Chosen by Nashemman: a texture, room or object. Not a tourism view. Landscape 3:2."
   priority: 5
-  ratio: "4/5"
-  type: "video"
-  src: ""
-  poster: ""
-  alt: ""
-  credit: ""
-
-studio-interiors:
-  label: "Studio project: interiors"
-  brief: "Residential or commercial interior by The Scribble Lab."
-  priority: 5
-  ratio: "4/5"
-  src: ""
-  alt: ""
-  credit: ""
-
-studio-activation:
-  label: "Studio project: activation or exhibition"
-  brief: "A brand activation, exhibition stand or event by The Scribble Lab."
-  priority: 5
-  ratio: "4/5"
+  ratio: "3/2"
   src: ""
   alt: ""
   credit: ""
 
 journal-opening:
-  label: "Cover: a page from a sketchbook"
-  brief: "A photograph of one of Nashemman's own sketchbook pages."
-  priority: 7
+  label: "Journal cover (editor's note, unpublished)"
+  brief: "A photograph of one of Nashemman's sketchbook pages."
+  priority: 9
   ratio: "16/10"
   src: ""
   alt: ""
   credit: ""
 
 journal-travel:
-  label: "Cover: travel photograph"
+  label: "Journal cover: travel"
   brief: "Nashemman's own photograph from the trip she writes about."
-  priority: 8
+  priority: 9
   ratio: "16/10"
   src: ""
   alt: ""
   credit: ""
 
 journal-process:
-  label: "Cover: process"
+  label: "Journal cover: process"
   brief: "A mock-up, a model, a material test."
-  priority: 8
+  priority: 9
   ratio: "16/10"
   src: ""
   alt: ""
   credit: ""
 
 journal-ideas:
-  label: "Cover: an idea in progress"
+  label: "Journal cover: ideas"
   brief: "Anything that shows thinking before it is finished."
   priority: 9
   ratio: "16/10"

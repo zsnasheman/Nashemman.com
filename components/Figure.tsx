@@ -1,30 +1,34 @@
 import Image from "next/image";
-import { getMediaSlot } from "@/lib/content";
-import Tilt from "./Tilt";
+import { getMediaSlot, getSite, SHOW_DRAFTS } from "@/lib/content";
 import VideoLoop from "./VideoLoop";
+import Sketch from "./sketch/Sketch";
+import MaterialArt from "./board/MaterialArt";
 
 type Props = {
   slot?: string;
   className?: string;
   sizes?: string;
   priority?: boolean;
-  caption?: string;
-  cursor?: string;
   ratio?: string;
 };
 
+/** Crops of the landing sketch, reused as chapter visuals. */
+export const SKETCH_CROPS: Record<string, string> = {
+  roots: "0 360 540 380",
+  practice: "500 110 660 640",
+  future: "1168 250 432 480",
+};
+
 /**
- * Every image and video on the site goes through this component.
- * It reads the slot from content/media.yml. With no file supplied yet,
- * it renders a clearly labelled editorial placeholder instead.
+ * Every photo and video goes through this component, reading its slot from
+ * content/media.yml. Without a file it renders an intentional illustrated
+ * composition. Internal slot notes appear only on the local preview.
  */
 export default function Figure({
   slot,
   className = "",
-  sizes = "(min-width: 900px) 40vw, 100vw",
+  sizes = "(min-width: 900px) 45vw, 100vw",
   priority,
-  caption,
-  cursor,
   ratio,
 }: Props) {
   const m = getMediaSlot(slot);
@@ -32,64 +36,61 @@ export default function Figure({
   const hasFile = !!m?.src;
 
   return (
-    <Tilt className={className}>
-      <figure className="figure" data-cursor={cursor}>
-        <div className="figure__stack" style={{ ["--ratio" as string]: aspect }}>
-          <div className="figure__media">
-            {hasFile && m?.type === "video" ? (
-              <VideoLoop src={m.src} poster={m.poster} label={m.alt || m.label} />
-            ) : hasFile ? (
-              <Image src={m!.src} alt={m!.alt} fill sizes={sizes} priority={priority} />
-            ) : (
-              <Placeholder
-                label={m?.label ?? "Image to come"}
-                brief={m?.brief}
-                slot={slot}
-                video={m?.type === "video"}
-              />
-            )}
-          </div>
-        </div>
-        {(caption || (hasFile && m?.credit)) && (
-          <figcaption>
-            <span>{caption}</span>
-            {hasFile && m?.credit ? <span>{m.credit}</span> : null}
-          </figcaption>
+    <figure className={`figure ${className}`} style={{ ["--ratio" as string]: aspect }}>
+      <div className="figure__media">
+        {hasFile && m?.type === "video" ? (
+          <VideoLoop src={m.src} poster={m.poster} label={m.alt || m.label} />
+        ) : hasFile ? (
+          <Image src={m!.src} alt={m!.alt} fill sizes={sizes} priority={priority} />
+        ) : (
+          <Fallback slot={slot} />
         )}
-      </figure>
-    </Tilt>
+      </div>
+      {hasFile && m?.credit ? <figcaption className="figure__credit">{m.credit}</figcaption> : null}
+      {!hasFile && SHOW_DRAFTS && m ? (
+        <span className="dev-tag" title={m.brief}>
+          missing asset · {slot}
+        </span>
+      ) : null}
+    </figure>
   );
 }
 
-function Placeholder({ label, brief, slot, video }: { label: string; brief?: string; slot?: string; video?: boolean }) {
-  return (
-    <div
-      className="placeholder"
-      role="img"
-      aria-label={`Placeholder: ${label}. ${video ? "Video" : "Image"} to be supplied.`}
-    >
-      <span className="placeholder__tag">{video ? "Video to come" : "Image to come"}</span>
-      <svg className="placeholder__mark" viewBox="0 0 120 90" fill="none" aria-hidden="true">
-        <path
-          d="M6 70 C 20 20, 38 18, 44 46 S 70 84, 82 42 S 108 10, 114 30"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <circle cx="6" cy="70" r="3" fill="currentColor" />
-        <path d="M110 24 l6 6 m-6 0 l6 -6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      </svg>
-      <div>
-        <p className="placeholder__label" style={{ margin: 0 }}>
-          {label}
-        </p>
-        {brief ? (
-          <p className="placeholder__brief" style={{ margin: "0.4rem 0 0.6rem" }}>
-            {brief}
-          </p>
-        ) : null}
-        {slot ? <span className="placeholder__slot">media: {slot}</span> : null}
+function Fallback({ slot = "" }: { slot?: string }) {
+  if (slot.startsWith("portrait")) return <PortraitComposition />;
+  if (slot === "roots-kashmir")
+    return (
+      <div className="art-fill art-fill--paper">
+        <Sketch viewBox={SKETCH_CROPS.roots} decorative />
       </div>
+    );
+  if (slot === "studio-feature")
+    return (
+      <div className="art-collage" aria-hidden="true">
+        {["kinetic", "residential", "brand"].map((id) => (
+          <span key={id} className={`art-collage__piece art-collage__piece--${id}`}>
+            <MaterialArt id={id} />
+          </span>
+        ))}
+      </div>
+    );
+  return <div className="art-fill art-fill--patches" aria-hidden="true" />;
+}
+
+/**
+ * Stand-in for the portrait until a real photograph is supplied: a composed
+ * monogram on colour fields. Never a face, never a stock person.
+ */
+export function PortraitComposition() {
+  const site = getSite();
+  return (
+    <div className="portrait-comp" aria-hidden="true">
+      <span className="portrait-comp__field portrait-comp__field--a" />
+      <span className="portrait-comp__field portrait-comp__field--b" />
+      <span className="portrait-comp__mono">{site.monogram}</span>
+      <svg className="portrait-comp__line" viewBox="0 0 200 120" fill="none">
+        <path d="M0 96 C40 96 50 40 90 44 S140 100 200 20" />
+      </svg>
     </div>
   );
 }

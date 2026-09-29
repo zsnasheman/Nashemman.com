@@ -2,69 +2,93 @@
 #  Site-wide copy and links.
 #  Edit the text between quotes. Keep indentation as it is.
 #  Anything left as "" is simply hidden on the site.
+#  Rule: only confirmed facts. Anything unconfirmed goes in
+#  REVIEW.md or a draft, never here.
 # ─────────────────────────────────────────────────────────────
 
 name: "Nashemman Sahiba Zargar"
 firstName: "Nashemman"
 lastNames: "Sahiba Zargar"
 monogram: "NSZ"
-
-# The journal's masthead title. The whole site reads as one publication.
-publication: "Still Drawing"
-issue: "Issue 01"
-description: "An independent design journal about Nashemman Sahiba Zargar: designer, founder of The Scribble Lab, from Kashmir, practising in Dubai, with new chapters still being drawn."
+description: "Nashemman Sahiba Zargar: designer from Kashmir, founder of The Scribble Lab in Dubai, and a builder of more than one venture."
 
 home:
-  kicker: "A journal about"
-  standfirst: "Designer. Founder of The Scribble Lab. From Kashmir, practising in Dubai, and not finished yet."
-  annotation: "still being drawn"
-  profileHeading: "A line that starts in Kashmir"
-  # Markdown is allowed in the profile.
-  profile: |
-    Nashemman Sahiba Zargar is a designer and the founder of **The Scribble Lab**, a design and build studio in Dubai. Her story begins in Kashmir. It runs through Delhi Public School and a bachelor's degree at Amity University Dubai, then through roughly five years inside other practices, among them XBD, Swiss Bureau and DLR Group, before she opened a studio of her own in 2022.
+  # Intro panel on the first screen.
+  kicker: "Designer · Founder"
+  intro: "A designer from Kashmir who studied, practised and set up her studio in Dubai. In 2022 she founded The Scribble Lab, a design and build studio. Now she is developing a second business, in interior accessories."
+  # Big statement. Words wrapped in [[double brackets]] get a colour patch.
+  statement: "She designs spaces [[and builds them]]. One studio, [[one more venture]] on the way."
+  facts:
+    - { label: "Roots", value: "Kashmir" }
+    - { label: "Studied", value: "Delhi Public School · Amity University Dubai" }
+    - { label: "Practice", value: "About five years, incl. XBD, Swiss Bureau, DLR Group" }
+    - { label: "Founded", value: "The Scribble Lab, 2022" }
+    - { label: "In development", value: "An interior accessories business" }
 
-    The studio works on homes and workplaces, brand activations, kinetic window displays, exhibitions and events. A second business, devoted to interior accessories, is now taking shape.
+studio:
+  name: "The Scribble Lab"
+  since: "2022"
+  url: "https://thescribblelab.com/"
+  lead: "Nashemman founded The Scribble Lab in 2022 as a creative design and build studio."
+  body: "Design and construction sit under one roof, so the idea and its making stay in the same hands. As founder she leads work that ranges from homes and workplaces to brand activations, kinetic window displays, exhibitions and events: spaces that last for years, and spaces built for a single week."
 
-    This is not a record of finished things. It is a place to follow the line while it is still being drawn.
-  coordinates:
-    - label: "Root"
-      place: "Kashmir"
-      note: "Where the line begins."
-      media: "roots-kashmir"
-      href: "/story#roots"
-    - label: "Practice"
-      place: "Dubai"
-      note: "Where the studio was built."
-      media: "practice-dubai"
-      href: "/story#practice"
-    - label: "Next"
-      place: "Unfolding"
-      note: "A venture in interior accessories, in development."
-      media: "venture-accessories"
-      href: "/work/interior-accessories"
+venture:
+  label: "In development"
+  title: "A second business, in interior accessories."
+  body: "Its name, products and launch will be shared when Nashemman is ready. The direction is clear: from the scale of rooms to the objects that live in them."
 
-# Navigation. Numbers make the site read like a table of contents.
+# The six disciplines on the material board.
+# `media` points to an optional photo slot in media.yml. While a slot is
+# empty, the tile shows an illustrated material study, labelled as such.
+board:
+  - id: residential
+    title: "Residential interiors"
+    media: "board-residential"
+    blurb: "Homes, designed and then built by the same studio: from the first drawing to the finished room."
+  - id: commercial
+    title: "Commercial interiors"
+    media: "board-commercial"
+    blurb: "Workplaces and commercial spaces that have to perform every day, for the people inside them and the brands they carry."
+  - id: brand
+    title: "Brand activations"
+    media: "board-brand"
+    blurb: "Short-lived spaces with one job: to make a brand felt in person. Quick to install, built to be remembered."
+  - id: kinetic
+    title: "Kinetic window displays"
+    media: "board-kinetic"
+    blurb: "Shop windows that move. Mechanism, rhythm and light turn a fixed frame into something people stop for."
+  - id: exhibitions
+    title: "Exhibitions"
+    media: "board-exhibitions"
+    blurb: "Stands and exhibition spaces planned around how visitors arrive, pause and meet."
+  - id: events
+    title: "Events"
+    media: "board-events"
+    blurb: "Stages, sets and spaces for a night or a weekend, designed and delivered by one team."
+
 nav:
-  - { href: "/story", label: "Story", number: "01" }
-  - { href: "/work", label: "Work & Ventures", number: "02" }
-  - { href: "/journal", label: "Journal", number: "03" }
-  - { href: "/talks", label: "Talks", number: "04" }
-  - { href: "/connect", label: "Connect", number: "05" }
+  - { href: "/story", label: "Story" }
+  - { href: "/work", label: "Work & Ventures" }
+  - { href: "/journal", label: "Journal" }
+  - { href: "/talks", label: "Talks" }
+  - { href: "/connect", label: "Connect" }
 
-# Verified professional channels. Only add links Nashemman has approved.
+# Contact channels. A channel is shown on the live site ONLY when
+# verified: true. Set it once the link has been checked by hand.
 channels:
   - label: "The Scribble Lab"
-    description: "The studio's own website: projects, services and studio enquiries."
+    description: "Studio projects and enquiries"
     url: "https://thescribblelab.com/"
+    verified: true
   - label: "LinkedIn"
-    description: "Professional profile."
-    # Supplied by Nashemman. See REVIEW.md: a public search also shows a
-    # slightly different profile address; confirm this one is correct.
+    description: "Professional profile"
+    # Supplied by Nashemman, but a public search shows a different address
+    # (nasheman-sahhiba-zargar). Confirm which is hers, then set verified: true.
     url: "https://www.linkedin.com/in/nasheman-sahiba-zargar/"
+    verified: false
 
 contact:
-  # Personal email for talks, press and conversations. Add ONLY when
-  # Nashemman supplies one. While empty, the Connect page routes to the
-  # verified channels above.
+  # Add ONLY an address Nashemman has supplied.
   email: ""
-  intro: "For studio projects, the quickest route is The Scribble Lab. For talks, interviews, collaborations and conversations, reach Nashemman through her professional channels below."
+  heading: "Start a conversation."
+  intro: "For talks, interviews, collaborations and studio projects."

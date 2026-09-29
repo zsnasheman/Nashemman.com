@@ -18,29 +18,24 @@ export const SHOW_DRAFTS = process.env.NODE_ENV !== "production" || process.env.
 
 /* ── Types ─────────────────────────────────────────────── */
 
-export type NavItem = { href: string; label: string; number: string };
-export type Channel = { label: string; description: string; url: string };
-export type Coordinate = { label: string; place: string; note: string; media: string; href: string };
+export type NavItem = { href: string; label: string };
+export type Channel = { label: string; description: string; url: string; verified?: boolean };
+export type Fact = { label: string; value: string };
+export type BoardEntry = { id: string; title: string; blurb: string; media?: string };
 
 export type Site = {
   name: string;
   firstName: string;
   lastNames: string;
   monogram: string;
-  publication: string;
-  issue: string;
   description: string;
-  home: {
-    kicker: string;
-    standfirst: string;
-    annotation: string;
-    profileHeading: string;
-    profile: string;
-    coordinates: Coordinate[];
-  };
+  home: { kicker: string; intro: string; statement: string; facts: Fact[] };
+  studio: { name: string; since: string; url: string; lead: string; body: string };
+  venture: { label: string; title: string; body: string };
+  board: BoardEntry[];
   nav: NavItem[];
   channels: Channel[];
-  contact: { email: string; intro: string };
+  contact: { email: string; heading: string; intro: string };
 };
 
 export type MediaSlot = {
@@ -70,21 +65,6 @@ export type JournalEntry = {
   readingMinutes: number;
 };
 
-export type WorkEntry = {
-  slug: string;
-  title: string;
-  kind: string;
-  since: string;
-  status: Status;
-  order: number;
-  url?: string;
-  cover?: string;
-  summary: string;
-  disciplines: string[];
-  gallery: string[];
-  html: string;
-};
-
 export type Talk = {
   slug: string;
   title: string;
@@ -99,7 +79,7 @@ export type Talk = {
   html: string;
 };
 
-export type StoryChapter = { id: string; title: string; place: string; html: string };
+export type StoryChapter = { id: string; title: string; place: string; visual?: string; html: string };
 
 /* ── Markdown ──────────────────────────────────────────── */
 
@@ -194,26 +174,6 @@ export function getJournal(): JournalEntry[] {
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export function getWork(): WorkEntry[] {
-  return readCollection("work")
-    .filter((e) => visible(e.data.status))
-    .map(({ slug, data, content }) => ({
-      slug,
-      title: str(data.title),
-      kind: str(data.kind),
-      since: str(data.since),
-      status: data.status as Status,
-      order: Number(data.order ?? 99),
-      url: data.url ? str(data.url) : undefined,
-      cover: data.cover ? str(data.cover) : undefined,
-      summary: str(data.summary),
-      disciplines: (data.disciplines as string[] | undefined) ?? [],
-      gallery: (data.gallery as string[] | undefined) ?? [],
-      html: renderMarkdown(content),
-    }))
-    .sort((a, b) => a.order - b.order);
-}
-
 /** A talk is publishable only when it is approved, verified and linked. */
 export function isPublishableTalk(t: Pick<Talk, "status" | "verified" | "url">) {
   return t.status === "published" && t.verified && !!t.url;
@@ -247,12 +207,13 @@ export function getStory() {
     .map((block) => {
       const nl = block.indexOf("\n");
       const heading = block.slice(0, nl).trim();
-      const m = heading.match(/^(.*?)\s*\{#([\w-]+)\s*\|\s*(.*?)\}\s*$/);
+      const m = heading.match(/^(.*?)\s*\{#([\w-]+)\s*\|\s*([^|}]*?)\s*(?:\|\s*([\w-]+)\s*)?\}\s*$/);
       const title = m ? m[1] : heading;
       return {
         id: m ? m[2] : title.toLowerCase().replace(/\W+/g, "-"),
         title,
         place: m ? m[3] : "",
+        visual: m?.[4],
         html: renderMarkdown(block.slice(nl + 1)),
       };
     });
@@ -263,4 +224,17 @@ export function formatDate(iso: string) {
   const d = new Date(`${iso}T00:00:00Z`);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+}
+
+/** Channels safe to show publicly: verified ones (all of them on the local preview). */
+export function getChannels(): Channel[] {
+  return getSite().channels.filter((c) => c.verified || SHOW_DRAFTS);
+}
+
+/** Splits "text [[patched]] text" into parts for colour-patch rendering. */
+export function splitPatches(text: string): { text: string; patch: boolean }[] {
+  return text
+    .split(/(\[\[.*?\]\])/)
+    .filter(Boolean)
+    .map((t) => (t.startsWith("[[") ? { text: t.slice(2, -2), patch: true } : { text: t, patch: false }));
 }

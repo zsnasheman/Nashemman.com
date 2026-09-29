@@ -25,7 +25,8 @@ for (const [id, m] of Object.entries(media)) {
     errors.push(`media.yml ${id}: file public${m.src} not found`);
   if (m.src && !m.credit) warnings.push(`media.yml ${id}: no credit recorded`);
 }
-site.home.coordinates.forEach((c) => checkSlot("site.yml coordinates", c.media));
+site.board.forEach((b) => checkSlot("site.yml board", b.media));
+for (const c of site.channels) if (c.verified !== true && c.verified !== false) errors.push(`site.yml channel ${c.label}: set verified: true or false`);
 
 const collection = (dir, required) =>
   fs
