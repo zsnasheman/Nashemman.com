@@ -68,6 +68,13 @@ Set `contact.email` in `content/site.yml`. The Connect page shows it automatical
 
 ---
 
+## Deployment status
+
+- **Vercel project:** `nashemman` (Hobby), connected to this repository via Git integration.
+- **Production branch:** `main`. Deploys to the project's `*.vercel.app` address only; no custom domain is attached.
+- **Working branch:** `claude/great-gates-j9e9us`. Every push creates a **preview** deployment with its own URL.
+- Nothing merges into `main` until the site is approved.
+
 ## Deploying on Vercel (free Hobby plan)
 
 1. Sign in at vercel.com with GitHub → **Add New… → Project** → import `zsnasheman/Nashemman.com`.
