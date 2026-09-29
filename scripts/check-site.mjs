@@ -20,7 +20,7 @@ const guess = ["/opt/pw-browsers/chromium-1194/chrome-linux/chrome", "/opt/pw-br
 const executablePath = process.env.CHROMIUM_PATH ?? guess.find((p) => fs.existsSync(p));
 
 fs.mkdirSync(OUT, { recursive: true });
-const browser = await chromium.launch({ executablePath });
+const browser = await chromium.launch({ executablePath, args: (process.env.CHROMIUM_ARGS ?? "").split(" ").filter(Boolean) });
 const viewports = {
   desktop: { viewport: { width: 1440, height: 900 } },
   mobile: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },

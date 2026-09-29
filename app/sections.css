@@ -7,7 +7,7 @@
 .sketch svg {
   width: 100%;
   height: auto;
-  overflow: visible;
+  overflow: hidden;
 }
 .sk-main,
 .sk-detail,
@@ -280,16 +280,22 @@
     }
   }
   .hero__panel {
-    grid-template-columns: 5.5rem minmax(0, 1fr);
-    align-items: start;
+    display: block;
     margin: -0.75rem var(--gutter) 0;
     width: auto;
   }
   .hero__portrait {
+    float: right;
+    width: 5.5rem;
+    margin: 0 0 0.75rem 1rem;
     aspect-ratio: 4/5;
   }
   .hero__text {
+    display: block;
     padding-block: 0;
+  }
+  .story-hero__portrait {
+    max-width: 13rem;
   }
   .hero__portrait .portrait-comp__mono {
     font-size: 1.9rem;
